@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -5,6 +6,11 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default = 'default.jpg', upload_to='profile_pics')
+    created_time = models.DateTimeField(default = timezone.now)
+    is_admin = models.BooleanField(default = False)
+    is_verified = models.BooleanField(default = False)
+    name = models.CharField(max_length=50,default='')
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
